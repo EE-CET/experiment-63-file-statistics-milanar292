@@ -2,40 +2,37 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class FileStats {
+public class FileStatistics {
     public static void main(String[] args) {
-        String fileName = "sample.txt";
-        
-        int lineCount = 0;
-        int wordCount = 0;
-        int charCount = 0;
+        int lines = 0;
+        int words = 0;
+        int characters = 0;
 
-        // Use try-with-resources to ensure the reader is closed automatically
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("sample.txt"));
             String line;
-            
-            // TODO: Read the file line by line until it returns null
-            while ((line = reader.readLine()) != null) {
-                // TODO: Increment lineCount
-                
-                // TODO: Add the length of the current line to charCount
-                
-                // TODO: Split the line into words using split("\\s+") and add the length of the resulting array to wordCount
-                // Hint: Check if the line is not empty before splitting to avoid counting empty strings!
+
+            while ((line = br.readLine()) != null) {
+                lines++;
+
+                // count characters (excluding newline)
+                characters += line.length();
+
+                // count words
+                String[] wordList = line.trim().split("\\s+");
                 if (!line.trim().isEmpty()) {
-                    String[] words = line.trim().split("\\s+");
-                    // Add words.length to wordCount
+                    words += wordList.length;
                 }
             }
-            
-        } catch (IOException e) {
-            System.out.println("Error reading the file: " + e.getMessage());
-            return;
-        }
 
-        // Output the results
-        System.out.println("Lines: " + lineCount);
-        System.out.println("Words: " + wordCount);
-        System.out.println("Characters: " + charCount);
+            br.close();
+
+            System.out.println("Lines: " + lines);
+            System.out.println("Words: " + words);
+            System.out.println("Characters: " + characters);
+
+        } catch (IOException e) {
+            System.out.println("Error reading file");
+        }
     }
 }
