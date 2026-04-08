@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class FileStatistics {
+public class FileStats {
     public static void main(String[] args) {
         int lines = 0;
         int words = 0;
@@ -14,11 +14,8 @@ public class FileStatistics {
 
             while ((line = br.readLine()) != null) {
                 lines++;
-
-                // count characters (excluding newline)
                 characters += line.length();
 
-                // count words
                 String[] wordList = line.trim().split("\\s+");
                 if (!line.trim().isEmpty()) {
                     words += wordList.length;
